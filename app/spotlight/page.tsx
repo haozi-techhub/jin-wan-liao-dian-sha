@@ -55,7 +55,7 @@ export default function SpotlightHomePage() {
         <div className="app">
           <div className="live-page-actions">
             <button type="button" className="back live-back-btn" onClick={handleBackToMain}>
-              ← Back to Main
+              ← 返回首页
             </button>
           </div>
           <LiveHomeScreen
@@ -68,8 +68,8 @@ export default function SpotlightHomePage() {
             onJoinGame={handleJoinGame}
             availableModes={['spotlight']}
             defaultMode="spotlight"
-            title="Hot Seat Live"
-            subtitle="Anonymous questions, reactions, and guess who asked."
+            title="匿名焦点"
+            subtitle="轮流当主角，回答匿名问题，再猜猜是谁问的。"
           />
         </div>
       </main>
@@ -81,7 +81,7 @@ export default function SpotlightHomePage() {
       <div className="app">
         <div className="live-page-actions">
           <button type="button" className="back live-back-btn" onClick={handleBackToMain}>
-            ← Back to Main
+            ← 返回首页
           </button>
         </div>
 

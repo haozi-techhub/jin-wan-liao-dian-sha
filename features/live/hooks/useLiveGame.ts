@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LIVE_QUESTION_COUNTDOWN_SECONDS } from '@/features/live/constants';
+import { DEFAULT_QUIZ_QUESTIONS } from '@/features/live/defaultQuizQuestions';
 import { getLiveSocket } from '@/features/live/services/liveSocket';
 import {
   type LiveMode,
@@ -225,6 +226,10 @@ export function useLiveGame({ initialRoomCode }: UseLiveGameOptions = {}): UseLi
         const onDisconnect = () => {
           setIsConnected(false);
           setSocketId(null);
+        };
+
+        const onConnectError = () => {
+          setErrorMessage(socket.active ? '暂时无法连接联机服务，正在重试。' : '联机服务连接失败。');
         };
 
         const onRoomCreated = (payload: {
@@ -609,6 +614,7 @@ export function useLiveGame({ initialRoomCode }: UseLiveGameOptions = {}): UseLi
 
         socket.on('connect', onConnect);
         socket.on('disconnect', onDisconnect);
+        socket.on('connect_error', onConnectError);
         socket.on('room_created', onRoomCreated);
         socket.on('room_inspected', onRoomInspected);
         socket.on('player_joined', onPlayerJoined);
@@ -639,6 +645,7 @@ export function useLiveGame({ initialRoomCode }: UseLiveGameOptions = {}): UseLi
         return () => {
           socket.off('connect', onConnect);
           socket.off('disconnect', onDisconnect);
+          socket.off('connect_error', onConnectError);
           socket.off('room_created', onRoomCreated);
           socket.off('room_inspected', onRoomInspected);
           socket.off('player_joined', onPlayerJoined);
@@ -660,9 +667,9 @@ export function useLiveGame({ initialRoomCode }: UseLiveGameOptions = {}): UseLi
           socket.off('game_finished', onGameFinished);
           socket.off('error', onError);
         };
-      } catch {
+      } catch (error) {
         if (isMounted) {
-          setErrorMessage('Could not connect to live server.');
+          setErrorMessage(error instanceof Error ? error.message : '无法连接联机服务。');
           setThrowbackConfig(null);
           setThrowbackUploadedCount(0);
         }
@@ -742,15 +749,17 @@ export function useLiveGame({ initialRoomCode }: UseLiveGameOptions = {}): UseLi
   const createRoom = useCallback((options?: { mode?: LiveMode; questions?: Question[]; throwbackConfig?: ThrowbackConfig }) => {
     const socket = socketRef.current;
     if (!socket) {
-      setErrorMessage('Live server is not ready yet.');
+      setErrorMessage('联机服务尚未连接。');
       return;
     }
 
     setErrorMessage(null);
     setRole('host');
     setIsCreatingRoom(true);
-    const questions = options?.questions ?? [];
     const mode = options?.mode;
+    const questions = options?.questions ?? (
+      mode === 'quiz' && !process.env.NEXT_PUBLIC_GAME_API_BASE_URL?.trim() ? DEFAULT_QUIZ_QUESTIONS : []
+    );
     const throwbackConfig = options?.throwbackConfig;
 
     if (questions.length > 0 || mode || throwbackConfig) {
@@ -768,7 +777,7 @@ export function useLiveGame({ initialRoomCode }: UseLiveGameOptions = {}): UseLi
   const joinRoom = useCallback((nickname: string, throwbackImageDataUrl?: string) => {
     const socket = socketRef.current;
     if (!socket) {
-      setErrorMessage('Live server is not ready yet.');
+      setErrorMessage('联机服务尚未连接。');
       return;
     }
 
@@ -776,12 +785,12 @@ export function useLiveGame({ initialRoomCode }: UseLiveGameOptions = {}): UseLi
     const normalizedCode = normalizeRoomCode(roomCodeRef.current);
 
     if (!trimmedNickname) {
-      setErrorMessage('Enter a nickname to join.');
+      setErrorMessage('请输入昵称。');
       return;
     }
 
     if (!normalizedCode || normalizedCode.length !== 6) {
-      setErrorMessage('Enter a valid 6-character room code.');
+      setErrorMessage('请输入有效的 6 位房间码。');
       return;
     }
 

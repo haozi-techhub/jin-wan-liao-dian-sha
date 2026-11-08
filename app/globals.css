@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: system-ui, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
 }
 
 html,
@@ -725,7 +725,6 @@ p {
   border-radius: 12px;
   color: #fff;
   font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
   resize: vertical;
   transition: border-color 0.3s ease;
 }

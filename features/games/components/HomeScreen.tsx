@@ -24,15 +24,15 @@ export default function HomeScreen({ isActive, onOpenGame }: HomeScreenProps) {
   return (
     <div className={`screen ${isActive ? "active" : ""}`} id="home">
       <section className="home-hero">
-        <p className="home-kicker">Party TIME</p>
-        <h1 className="home-title">GameKhane</h1>
+        <p className="home-kicker">聚会小游戏</p>
+        <h1 className="home-title">今晚聊点啥</h1>
         <div className="home-subtitle-row">
           <p className="home-subtitle">
-            Pick a game, pass the phone, and keep the energy high.
+            选个玩法，把手机传给下一位。
           </p>
           <div className="home-help-inline">
             <button type="button" className="how-to-play-btn" onClick={open}>
-              How to play?
+              怎么玩？
             </button>
           </div>
         </div>
@@ -41,14 +41,14 @@ export default function HomeScreen({ isActive, onOpenGame }: HomeScreenProps) {
       {liveQuizItem ? (
         <section className="home-live-card">
           <div>
-            <p className="home-live-pill">QUIZ TIME</p>
+            <p className="home-live-pill">联机玩法</p>
             <h2>
               {liveQuizItem.icon} {liveQuizItem.title}
             </h2>
             <p>{liveQuizItem.subtitle}</p>
           </div>
           <Link href="/live" className="home-live-card__cta">
-            Play
+            开始玩
           </Link>
         </section>
       ) : null}
@@ -56,14 +56,14 @@ export default function HomeScreen({ isActive, onOpenGame }: HomeScreenProps) {
       {spotlightItem ? (
         <section className="home-live-card home-live-card--spotlight">
           <div>
-            <p className="home-live-pill">SPOTLIGHT</p>
+            <p className="home-live-pill">联机玩法</p>
             <h2>
               {spotlightItem.icon} {spotlightItem.title}
             </h2>
             <p>{spotlightItem.subtitle}</p>
           </div>
           <Link href="/spotlight" className="home-live-card__cta">
-            Play
+            开始玩
           </Link>
         </section>
       ) : null}
@@ -71,7 +71,7 @@ export default function HomeScreen({ isActive, onOpenGame }: HomeScreenProps) {
       {tiltGuessItem ? (
         <section className="home-tilt-card">
           <div>
-            <p className="home-tilt-pill">HEADS-UP</p>
+            <p className="home-tilt-pill">同屏玩法</p>
             <h2>
               {tiltGuessItem.icon} {tiltGuessItem.title}
             </h2>
@@ -82,7 +82,7 @@ export default function HomeScreen({ isActive, onOpenGame }: HomeScreenProps) {
             className="home-tilt-card__cta"
             onClick={() => onOpenGame(tiltGuessItem.id)}
           >
-            Play
+            开始玩
           </button>
         </section>
       ) : null}
@@ -108,7 +108,7 @@ export default function HomeScreen({ isActive, onOpenGame }: HomeScreenProps) {
       {wheelItem ? (
         <section className="home-wheel-card">
           <div>
-            <p className="home-wheel-pill">SPINNER</p>
+            <p className="home-wheel-pill">随机选择</p>
             <h2>
               {wheelItem.icon} {wheelItem.title}
             </h2>
@@ -119,7 +119,7 @@ export default function HomeScreen({ isActive, onOpenGame }: HomeScreenProps) {
             className="home-wheel-card__cta"
             onClick={() => onOpenGame(wheelItem.id)}
           >
-            Spin
+            打开转盘
           </button>
         </section>
       ) : null}

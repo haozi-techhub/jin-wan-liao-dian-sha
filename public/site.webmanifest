@@ -1,6 +1,7 @@
 {
-  "name": "Games Khane",
-  "short_name": "Games",
+  "name": "今晚聊点啥",
+  "short_name": "今晚聊点啥",
+  "lang": "zh-CN",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f0f14",

@@ -21,13 +21,13 @@ export default function GameScreen({
     <div className={`screen game ${isActive ? 'active' : ''}`} id="gameScreen">
       <h1 id="gameTitle">{config?.title ?? ''}</h1>
       <div className="card" id="gameText" aria-live="polite">
-        {text || (isLoading ? 'Loading...' : '')}
+        {text || (isLoading ? '正在抽题…' : '')}
       </div>
       <button onClick={onNext} id="gameButton" type="button" disabled={isLoading}>
-        {config?.buttonText ?? 'Next'}
+        {config?.buttonText ?? '下一题'}
       </button>
       <button className="back" onClick={onBack} type="button">
-        ← Back
+        ← 返回首页
       </button>
     </div>
   );

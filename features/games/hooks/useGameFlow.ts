@@ -106,7 +106,7 @@ export function useGameFlow(): UseGameFlowResult {
             return;
           }
 
-          setGameText('Could not load a question. Tap again.');
+          setGameText('题目加载失败，点下方按钮重试。');
           return;
         }
       }
@@ -115,7 +115,7 @@ export function useGameFlow(): UseGameFlowResult {
         return;
       }
 
-      setGameText('Could not load a question. Tap again.');
+      setGameText('题目加载失败，点下方按钮重试。');
     } finally {
       if (requestIdRef.current === requestId) {
         setIsLoading(false);

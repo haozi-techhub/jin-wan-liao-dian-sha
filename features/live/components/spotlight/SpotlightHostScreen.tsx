@@ -28,38 +28,38 @@ interface SpotlightHostScreenProps {
 
 function statusLabel(status: SpotlightHostScreenProps['status']): string {
   if (status === 'writing') {
-    return 'Collecting Questions';
+    return '收集问题中';
   }
 
   if (status === 'choice') {
-    return 'Choosing';
+    return '选题中';
   }
 
   if (status === 'reveal') {
-    return 'Answering';
+    return '回答中';
   }
 
   if (status === 'reaction') {
-    return 'Reactions';
+    return '收集反应中';
   }
 
   if (status === 'guess') {
-    return 'Voting';
+    return '投票中';
   }
 
   if (status === 'results') {
-    return 'Results';
+    return '公布结果';
   }
 
   if (status === 'finished') {
-    return 'Finished';
+    return '已结束';
   }
 
   if (status === 'lobby') {
-    return 'Lobby';
+    return '等待开始';
   }
 
-  return 'Ready';
+  return '就绪';
 }
 
 export default function SpotlightHostScreen({
@@ -86,7 +86,7 @@ export default function SpotlightHostScreen({
   return (
     <section className="live-shell">
       <div className="live-header-row">
-        <h1 className="live-title">Spotlight Host</h1>
+        <h1 className="live-title">匿名焦点主持台</h1>
         <span className="live-status-pill">{statusLabel(status)}</span>
       </div>
 
@@ -95,26 +95,26 @@ export default function SpotlightHostScreen({
       <RoomShareCard roomCode={roomCode} joinPathBase={joinPathBase} />
 
       <div className="live-panel">
-        <h2 className="live-section-title">Players ({players.length})</h2>
+        <h2 className="live-section-title">玩家（{players.length}）</h2>
         <ul className="live-player-list">
-          {players.length === 0 ? <li className="live-muted">Waiting for players...</li> : null}
+          {players.length === 0 ? <li className="live-muted">等待玩家加入…</li> : null}
           {players.map((player) => (
             <li key={player.id}>
               <span>{player.nickname}</span>
-              <span className="live-muted">Joined</span>
+              <span className="live-muted">已加入</span>
             </li>
           ))}
         </ul>
       </div>
 
       <div className="live-panel">
-        <h2 className="live-section-title">Round {Math.max(1, roundIndex)}</h2>
+        <h2 className="live-section-title">第 {Math.max(1, roundIndex)} 轮</h2>
         <p className="live-question-copy">
-          {spotlightName ? `Spotlight: ${spotlightName}` : 'Waiting for spotlight...'}
+          {spotlightName ? `本轮主角：${spotlightName}` : '等待主角上场…'}
         </p>
         {status === 'writing' ? (
           <p className="live-progress">
-            {submittedCount}/{Math.max(0, totalWriters)} questions in
+            已收到 {submittedCount}/{Math.max(0, totalWriters)} 个问题
           </p>
         ) : null}
         {status === 'reveal' && questionText ? (
@@ -124,7 +124,7 @@ export default function SpotlightHostScreen({
           <div className="live-vote-grid">
             {reactionCounts.map((count, index) => (
               <div key={`reaction-${index}`} className={`live-vote-card live-vote-card--${index}`}>
-                <span>Reaction {index + 1}</span>
+                <span>反应 {index + 1}</span>
                 <strong>{count}</strong>
               </div>
             ))}
@@ -132,12 +132,12 @@ export default function SpotlightHostScreen({
         ) : null}
         {status === 'reveal' || status === 'reaction' ? (
           <p className="live-progress">
-            {reactionAnswered}/{totalReactors} reacted
+            已发表反应 {reactionAnswered}/{totalReactors} 人
           </p>
         ) : null}
         {status === 'guess' ? (
           <p className="live-progress">
-            {guessAnswered}/{totalGuessers} guessed
+            已投票 {guessAnswered}/{totalGuessers} 人
           </p>
         ) : null}
         {status === 'results' && skipReason ? <p className="live-muted">{skipReason}</p> : null}
@@ -146,25 +146,25 @@ export default function SpotlightHostScreen({
       <div className="live-actions">
         {status === 'lobby' && (
           <button type="button" className="live-btn-main" onClick={onStartGame} disabled={players.length === 0}>
-            Start Game
+            开始游戏
           </button>
         )}
 
         {status === 'results' && (
           <button type="button" className="live-btn-main" onClick={onNextRound}>
-            Next Spotlight
+            下一位主角
           </button>
         )}
 
         {status !== 'finished' && (
           <button type="button" className="live-btn-danger" onClick={onEndGame}>
-            End Game
+            结束游戏
           </button>
         )}
 
         {status === 'finished' && (
           <button type="button" className="live-btn-main" onClick={onStartOver}>
-            Start Over
+            再开一局
           </button>
         )}
       </div>

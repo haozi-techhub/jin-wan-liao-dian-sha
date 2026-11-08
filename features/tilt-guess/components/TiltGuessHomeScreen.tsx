@@ -10,6 +10,7 @@ interface TiltGuessHomeScreenProps {
   onStartGame: () => void;
   onBack: () => void;
   isStarting: boolean;
+  startError: string;
   motionPermission: MotionPermissionState;
   canRequestMotionPermission: boolean;
   onEnableMotionControls: () => void;
@@ -21,6 +22,7 @@ export default function TiltGuessHomeScreen({
   onStartGame,
   onBack,
   isStarting,
+  startError,
   motionPermission,
   canRequestMotionPermission,
   onEnableMotionControls,
@@ -29,10 +31,10 @@ export default function TiltGuessHomeScreen({
 
   return (
     <div className="screen game active tilt-guess-home">
-      <h1>Tilt & Guess</h1>
-      <p className="tilt-guess-subtitle">Hold the phone on your forehead and let your friends give clues.</p>
+      <h1>摇头猜词</h1>
+      <p className="tilt-guess-subtitle">把手机横着举到额前，屏幕朝向朋友。朋友给提示，你来猜词。</p>
 
-      <div className="tilt-guess-category-grid" role="radiogroup" aria-label="Tilt and Guess categories">
+      <div className="tilt-guess-category-grid" role="radiogroup" aria-label="猜词类别">
         {TILT_GUESS_CATEGORIES.map((category) => {
           const isActive = category.id === selectedCategory;
 
@@ -54,12 +56,18 @@ export default function TiltGuessHomeScreen({
 
       {needsMotionPermission ? (
         <div className="tilt-guess-motion-box" role="status" aria-live="polite">
-          <p>Motion access is required on iOS devices.</p>
+          <p>
+            {motionPermission === 'denied'
+              ? '动作感应权限未开启，请在浏览器设置中允许后重试。'
+              : '请允许访问动作感应，才能用低头和抬头切换题目。'}
+          </p>
           <button type="button" onClick={onEnableMotionControls} disabled={isStarting}>
-            Enable Motion Controls
+            开启动作感应
           </button>
         </div>
       ) : null}
+
+      {startError ? <p className="tilt-guess-subtitle" role="alert">{startError}</p> : null}
 
       <button
         type="button"
@@ -67,11 +75,11 @@ export default function TiltGuessHomeScreen({
         onClick={onStartGame}
         disabled={isStarting || needsMotionPermission}
       >
-        {isStarting ? 'Preparing...' : 'Start Game'}
+        {isStarting ? '正在准备…' : '开始游戏'}
       </button>
 
       <button className="back" onClick={onBack} type="button">
-        ← Back
+        ← 返回游戏大厅
       </button>
     </div>
   );

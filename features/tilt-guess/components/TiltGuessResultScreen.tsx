@@ -15,28 +15,28 @@ export default function TiltGuessResultScreen({
 
   return (
     <div className="screen game active tilt-guess-result">
-      <h1>Round Complete</h1>
+      <h1>本轮结束</h1>
 
       <div className="tilt-guess-result-card">
         <div>
-          <span>Correct guesses</span>
+          <span>猜对</span>
           <strong>{correctCount}</strong>
         </div>
         <div>
-          <span>Skipped words</span>
+          <span>跳过</span>
           <strong>{skipCount}</strong>
         </div>
         <div>
-          <span>Total score</span>
+          <span>总分</span>
           <strong>{totalScore}</strong>
         </div>
       </div>
 
       <button type="button" onClick={onPlayAgain}>
-        Play Again
+        再玩一轮
       </button>
       <button className="back" type="button" onClick={onBackToGames}>
-        ← Back to Games
+        ← 返回游戏大厅
       </button>
     </div>
   );

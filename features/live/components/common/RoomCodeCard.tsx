@@ -6,7 +6,7 @@ interface RoomCodeCardProps {
 
 export default function RoomCodeCard({
   roomCode,
-  label = 'Room Code',
+  label = '房间码',
   emptyLabel = '------'
 }: RoomCodeCardProps) {
   return (

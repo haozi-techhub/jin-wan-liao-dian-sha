@@ -12,16 +12,26 @@ const EMPTY_TEMPLATES: SpotlightTemplates = {
   deep: []
 };
 
-function buildRequestUrl(): string {
-  const baseUrl = process.env.NEXT_PUBLIC_GAME_API_BASE_URL?.trim();
-  const path = '/api/spotlight/templates';
-
-  if (!baseUrl) {
-    return path;
-  }
-
-  return `${baseUrl.replace(/\/$/, '')}${path}`;
-}
+const DEFAULT_TEMPLATES: SpotlightTemplates = {
+  spicy: [
+    '你最容易被哪种人吸引？',
+    '你做过最冲动的决定是什么？',
+    '有什么话你在心里排练过很多次，却一直没说？',
+    '你曾经为了在喜欢的人面前表现自己，做过什么傻事？'
+  ],
+  funny: [
+    '如果你的生活有一条弹幕总跟着你，上面会写什么？',
+    '你最近一次笑到停不下来，是因为什么？',
+    '你用过最离谱的迟到理由是什么？',
+    '假如你是一道菜，你觉得菜单会怎么介绍你？'
+  ],
+  deep: [
+    '过去一年，你对哪件事的看法变了？',
+    '你最近什么时候觉得自己被理解了？',
+    '如果可以给五年前的自己留一句话，你会说什么？',
+    '你想把更多时间花在哪件事上？'
+  ]
+};
 
 function isStringArray(value: unknown): value is string[] {
   return Array.isArray(value) && value.every((entry) => typeof entry === 'string');
@@ -88,16 +98,21 @@ async function fetchWithTimeout(input: string, timeoutMs = REQUEST_TIMEOUT_MS): 
 }
 
 export async function getSpotlightTemplates(): Promise<SpotlightTemplates> {
-  const requestUrl = buildRequestUrl();
+  const baseUrl = process.env.NEXT_PUBLIC_GAME_API_BASE_URL?.trim();
+  if (!baseUrl) {
+    return DEFAULT_TEMPLATES;
+  }
+
+  const requestUrl = `${baseUrl.replace(/\/$/, '')}/api/spotlight/templates`;
   const response = await fetchWithTimeout(requestUrl);
   const payload = (await response.json().catch(() => null)) as unknown;
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch spotlight templates (${response.status})`);
+    throw new Error(`匿名焦点题目模板加载失败（${response.status}）`);
   }
 
   if (!isTemplatesResponse(payload)) {
-    throw new Error('Invalid spotlight templates payload');
+    throw new Error('匿名焦点题目模板格式有误。');
   }
 
   const normalized = normalizeTemplates(payload.data);

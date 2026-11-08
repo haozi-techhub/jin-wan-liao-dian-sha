@@ -26,13 +26,13 @@ export default function SpotlightGuessScreen({
   return (
     <section className="live-shell">
       <div className="live-header-row">
-        <h1 className="live-title">Who Asked?</h1>
+        <h1 className="live-title">是谁问的？</h1>
       </div>
 
       <p className="live-question-copy live-question-copy--large">{questionText ?? '...'}</p>
 
       {isSpotlight ? (
-        <p className="live-muted">Everyone else is guessing who asked. Sit tight.</p>
+        <p className="live-muted">其他玩家正在猜是谁提问，请稍等。</p>
       ) : (
         <>
           <div className="live-guess-grid">
@@ -50,7 +50,7 @@ export default function SpotlightGuessScreen({
           </div>
 
           <p className="live-progress">
-            {answeredCount}/{totalGuessers} guessed
+            已投票 {answeredCount}/{totalGuessers} 人
           </p>
         </>
       )}

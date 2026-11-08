@@ -1,5 +1,5 @@
-import { proxyGameApiRequest } from '@/lib/gameApiProxy';
+import { serveGamePrompt } from '../_data/serveGamePrompt';
 
 export async function GET(request: Request) {
-  return proxyGameApiRequest('/api/would-you-rather', request);
+  return serveGamePrompt('/api/would-you-rather', request);
 }

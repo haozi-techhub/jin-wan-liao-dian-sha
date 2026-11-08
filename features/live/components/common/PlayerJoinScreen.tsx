@@ -8,6 +8,7 @@ import { fileToOptimizedDataUrl } from '@/features/live/utils/imageUpload';
 interface PlayerJoinScreenProps {
   roomCode: string;
   errorMessage: string | null;
+  isConnected: boolean;
   isJoining: boolean;
   roomMode: LiveMode | null;
   throwbackImageLabel?: string | null;
@@ -17,6 +18,7 @@ interface PlayerJoinScreenProps {
 export default function PlayerJoinScreen({
   roomCode,
   errorMessage,
+  isConnected,
   isJoining,
   roomMode,
   throwbackImageLabel,
@@ -37,7 +39,7 @@ export default function PlayerJoinScreen({
     }
 
     if (!file.type.startsWith('image/')) {
-      setLocalError('Please choose an image file.');
+      setLocalError('请选择图片文件。');
       return;
     }
 
@@ -48,7 +50,7 @@ export default function PlayerJoinScreen({
       const optimizedImage = await fileToOptimizedDataUrl(file);
       setImagePreview(optimizedImage);
     } catch {
-      setLocalError('Could not prepare that image. Try another one.');
+      setLocalError('这张照片处理失败，请换一张。');
       setSelectedFileName(null);
     } finally {
       setIsPreparingImage(false);
@@ -58,26 +60,26 @@ export default function PlayerJoinScreen({
 
   return (
     <section className="live-shell">
-      <h1 className="live-title">Join Room</h1>
+      <h1 className="live-title">加入房间</h1>
       <RoomCodeCard roomCode={roomCode} />
 
       <div className="live-panel">
         <label htmlFor="nickname" className="live-label">
-          Nickname
+          昵称
         </label>
         <input
           id="nickname"
           className="live-input"
           value={nickname}
           onChange={(event) => setNickname(event.target.value)}
-          placeholder="Your name"
+          placeholder="输入昵称"
           maxLength={24}
         />
 
         {isThrowbackRoom ? (
           <>
             <label htmlFor="join-photo" className="live-label">
-              Image
+              照片
             </label>
             <input
               id="join-photo"
@@ -89,19 +91,19 @@ export default function PlayerJoinScreen({
             />
             <div className="live-file-row">
               <label htmlFor="join-photo" className="live-btn-neutral live-file-trigger">
-                {isPreparingImage ? 'Preparing...' : 'Choose Image'}
+                {isPreparingImage ? '正在处理…' : '选择照片'}
               </label>
-              <p className="live-file-name">{selectedFileName ?? 'No image selected yet'}</p>
+              <p className="live-file-name">{selectedFileName ?? '尚未选择照片'}</p>
             </div>
 
             {imagePreview ? (
               <div className="live-image-preview-card">
-                <img src={imagePreview} alt="Selected upload preview" className="live-image-preview" />
+                <img src={imagePreview} alt="已选照片预览" className="live-image-preview" />
               </div>
             ) : null}
 
             <p className="live-helper-text">
-              This room needs an image of/from your: <strong>{throwbackImageLabel ?? 'throwback'}</strong>
+              请按主题上传照片：<strong>{throwbackImageLabel ?? '回忆照片'}</strong>
             </p>
           </>
         ) : null}
@@ -111,13 +113,14 @@ export default function PlayerJoinScreen({
           className="live-btn-main"
           onClick={() => onJoin(nickname, imagePreview ?? undefined)}
           disabled={
+            !isConnected ||
             isJoining ||
             isPreparingImage ||
             nickname.trim().length === 0 ||
             (isThrowbackRoom && !imagePreview)
           }
         >
-          {isJoining ? 'Joining...' : 'Join'}
+          {isJoining ? '正在加入…' : '加入房间'}
         </button>
       </div>
 

@@ -1,140 +1,50 @@
-# 🎮 Games Khane
+# 今晚聊点啥
 
-**GameKhane** is a simple, web app for friends to hang out, laugh, and kill indecision.
+朋友聚会用的网页小游戏合集，基于 Tareq Alhammoodi 的 [Games Khane](https://github.com/tareqalhammoodi/games-khane-app) 改编。
 
-It includes classic party games like **Truth or Dare**, **Would You Rather**, **Most Likely To**, **Challenges**, **Chit-Chat**, and **What Are We Doing Tonight?** — plus **Riddles**, **Emoji Decode**, **Tilt & Guess**, **Spin the Wheel**, and two real-time live rooms: **GameKhane Live** (quiz) and **Hot Seat Live** (anonymous spotlight). You can try it [here](https://games-khane.vercel.app/).
+## 本地启动
 
-I built this for myself and my friends, but you can easily customize the questions and challenges to match you and your group.
-
-## Stack
-
-- Next.js (latest stable via `next@latest`)
-- App Router
-- TypeScript
-- React (vanilla patterns: state/effects/hooks)
-- Global CSS (migrated from original styles)
-- Socket.io (live multiplayer)
-
-## Highlights
-
-- Two real-time live rooms: GameKhane Live (quiz) + Hot Seat Live (anonymous questions, reactions, and “guess who asked”).
-- Tilt & Guess heads-up style game powered by device motion.
-- Spicy Mode toggle for most question-based games.
-- No-repeat question pool per session (deduped by id/content until the pool is exhausted).
-- Answer reveal for Riddles and Emoji Decode.
-
-## Run Locally
+需要 Node.js 20.9 或更新版本。首次启动前安装依赖。
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Then open `http://localhost:3000`.
+打开 [http://localhost:3000](http://localhost:3000)。
 
-## Project Structure
+| 玩法 | 怎么玩 |
+| --- | --- |
+| 八种题卡 | 真心话大冒险、谁最有可能、二选一、随机挑战、聊天话题、今晚玩什么、趣味谜语和表情猜谜。部分题卡可开加料模式，猜谜类可以翻看答案。 |
+| 幸运转盘 | 每行输入一个名字或选项，由转盘随机选出结果。 |
+| 摇头猜词 | 选分类，把手机横过来贴在额头。猜对向下倾，跳过向上倾。手机浏览器可能要求通过 HTTPS 打开页面，并允许访问动作感应。 |
+| 联机房间 | 房主创建房间并分享房间码。支持联机答题、匿名焦点和回忆猜猜看，需要另接兼容的 Socket.IO 服务。 |
 
-```txt
-app/
-  api/
-  live/
-  live/[roomCode]/
-  spotlight/
-  spotlight/[roomCode]/
-  tilt-guess/
-  wheel/
-  globals.css
-  layout.tsx
-  page.tsx
-components/
-  ui/
-    InfoDialog.tsx
-features/
-  games/
-    components/
-      GameApp.tsx
-      HomeScreen.tsx
-      GameScreen.tsx
-    constants/
-      howToPlayDialogContent.ts
-    hooks/
-      useGameFlow.ts
-    services/
-      gameContentService.ts
-  live/
-    components/
-      common/
-      quiz/
-      spotlight/
-    hooks/
-      useLiveGame.ts
-    services/
-      liveSocket.ts
-    types/
-      core.ts
-  tilt-guess/
-    components/
-      TiltGuessHomeScreen.tsx
-      TiltGuessGameScreen.tsx
-      TiltGuessResultScreen.tsx
-    hooks/
-      useTiltGuess.ts
-    services/
-      tiltGuessWordService.ts
-  wheel/
-    components/
-      WheelScreen.tsx
-      WheelInputSection.tsx
-      WheelCanvasSection.tsx
-      WheelResultModal.tsx
-    hooks/
-      useWheel.ts
-    lib/
-      wheelMath.ts
-      wheelCanvas.ts
-hooks/
-  useClickOutside.ts
-  useDialog.ts
-  useEscapeKey.ts
-  useTooltip.ts
-lib/
-  gameConfig.ts
-types/
-  dialog.ts
-  game.ts
-  wheel.ts
-```
+默认内置 188 条简体中文题卡和 125 个猜词词条。题卡在当前题池抽完前会跳过本轮已经出现的题。
 
-## Notes
+## 可选配置
 
-- Original screen switching and DOM updates were converted to React state transitions.
-- Game content is fetched from API endpoints:
-  - `/api/truth-dare`
-  - `/api/would-you-rather`
-  - `/api/most-likely`
-  - `/api/challenge`
-  - `/api/conversation`
-  - `/api/tonight`
-  - `/api/riddles`
-  - `/api/emoji-decode`
-- Game API response shape expected by the client:
-  - `{ data: { id, type, content, createdAt } }`
-- Wheel canvas logic was migrated to a client component using refs + effects.
-- Tooltip and dialog behavior are handled with reusable hooks/components (`useTooltip`, `useDialog`, `InfoDialog`).
-- Styling values were preserved to maintain pixel consistency with the previous version.
-- SEO metadata is defined in `app/layout.tsx`.
-- Wheel UI is lazy-loaded via dynamic import in `features/games/components/GameApp.tsx`.
-- Live multiplayer uses a Socket.io server (see `NEXT_PUBLIC_LIVE_SOCKET_URL`).
-- Tilt & Guess requests device motion permission where required (iOS).
+如需连接外部服务，将所需配置填入项目根目录的 `.env.local`，并重启开发服务。
 
-## Environment
+| 环境变量 | 用途 |
+| --- | --- |
+| `GAME_API_BASE_URL` | 服务端题库接口地址。配置后，题卡和猜词的本地路由转发到该地址。 |
+| `NEXT_PUBLIC_GAME_API_BASE_URL` | 兼容原版的公开 API 地址。服务端未设置 `GAME_API_BASE_URL` 时，也会用它作为题库接口地址。 |
+| `NEXT_PUBLIC_LIVE_SOCKET_URL` | 兼容原版房间协议的 Socket.IO 服务地址。仓库提供联机前端，建房和房间同步由此服务处理。未设置时，联机客户端沿用原版规则，尝试使用 `NEXT_PUBLIC_GAME_API_BASE_URL`。 |
+| `NEXT_PUBLIC_LIVE_SOCKET_PATH` | Socket.IO 路径，默认是 `/live/socket.io`。 |
 
-- Optional:
-  - `NEXT_PUBLIC_GAME_API_BASE_URL` (example: `https://api.example.com`)
-  - `NEXT_PUBLIC_LIVE_SOCKET_URL` (example: `https://api.example.com`)
-  - `NEXT_PUBLIC_LIVE_SOCKET_PATH` (default: `/live/socket.io`)
-  - If omitted, the app will call relative paths (same domain), e.g. `/api/truth-dare`.
+只配置联机服务时，联机答题默认发送 8 道内置中文题，匿名焦点提供 12 条中文提问模板。配置 `NEXT_PUBLIC_GAME_API_BASE_URL` 后，这两项内容沿用外部服务。外部题库内容和服务端消息按原文展示。和朋友用手机联机时，请通过手机也能访问的地址打开网站。
 
----
+## 项目结构
 
-Have fun & pass the phone 🎉
+项目使用 Next.js App Router、React、TypeScript 和全局 CSS，联机客户端使用 Socket.IO。
+
+| 目录 | 内容 |
+| --- | --- |
+| `app/` | 首页、玩法页面、API 路由和全局样式 |
+| `features/games/` | 玩法入口、玩法说明、题卡交互及请求逻辑 |
+| `features/tilt-guess/`、`features/wheel/` | 摇头猜词和幸运转盘 |
+| `features/live/` | 联机房间、答题、匿名焦点和回忆猜猜看 |
+| `components/`、`hooks/`、`lib/` | 通用组件、交互逻辑和题库代理 |
+
+运行 `npm run typecheck` 检查类型，运行 `npm run build` 验证生产构建。

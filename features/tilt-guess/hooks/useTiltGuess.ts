@@ -17,6 +17,7 @@ interface UseTiltGuessResult {
   gameStatus: TiltGuessGameStatus;
   feedback: TiltGuessResult | null;
   isStarting: boolean;
+  startError: string;
   motionPermission: MotionPermissionState;
   canRequestMotionPermission: boolean;
   startGame: (category?: TiltGuessCategory) => Promise<boolean>;
@@ -99,6 +100,7 @@ export function useTiltGuess(): UseTiltGuessResult {
   const [gameStatus, setGameStatus] = useState<TiltGuessGameStatus>('idle');
   const [feedback, setFeedback] = useState<TiltGuessResult | null>(null);
   const [isStarting, setIsStarting] = useState(false);
+  const [startError, setStartError] = useState('');
   const [motionPermission, setMotionPermission] = useState<MotionPermissionState>('unknown');
   const [canRequestMotionPermission, setCanRequestMotionPermission] = useState(false);
 
@@ -242,12 +244,15 @@ export function useTiltGuess(): UseTiltGuessResult {
         return false;
       }
 
+      setStartError('');
       setIsStarting(true);
 
       try {
         const words = await getWords(category);
         if (words.length === 0) {
-          throw new Error('No words available for this category.');
+          setStartError('这个类别暂无词条，请换一个类别。');
+          setGameStatus('idle');
+          return false;
         }
 
         clearTimer();
@@ -278,6 +283,7 @@ export function useTiltGuess(): UseTiltGuessResult {
 
         return true;
       } catch {
+        setStartError('词库加载失败，请重试。');
         setGameStatus('idle');
         return false;
       } finally {
@@ -313,6 +319,7 @@ export function useTiltGuess(): UseTiltGuessResult {
     setGameStatus('idle');
     setFeedback(null);
     setIsStarting(false);
+    setStartError('');
   }, [clearFeedbackTimeout, clearTimer, resetDetector]);
 
   useEffect(() => {
@@ -463,6 +470,7 @@ export function useTiltGuess(): UseTiltGuessResult {
     gameStatus,
     feedback,
     isStarting,
+    startError,
     motionPermission,
     canRequestMotionPermission,
     startGame,

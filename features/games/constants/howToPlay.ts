@@ -1,40 +1,36 @@
 import { DialogContent } from "@/types/dialog";
 
 export const HOW_TO_PLAY: DialogContent = {
-  kicker: 'Quick Guide',
-  title: 'How to Play',
-  intro: 'Pick a mode and jump in. Here’s the easiest way to run each one.',
-  actionLabel: "Let's Play",
+  kicker: '快速上手',
+  title: '怎么玩？',
+  intro: '和朋友面对面时，可以传手机一起玩。接好联机服务后，也可以用各自的手机加入房间。',
+  actionLabel: '开始玩',
   steps: [],
   sections: [
     {
-      heading: 'Classic Party Flow (Spinner + Questions)',
+      heading: '转盘抽人，题卡出题',
       steps: [
-        'Open the game on two phones.',
-        'On Phone 1, open the Spinner and add everyone’s names.',
-        'Spin the wheel — whoever it lands on is up!',
-        'On Phone 2, open the Questions and read their challenge.',
-        'After their turn, spin again and keep the fun going!'
+        '打开幸运转盘，把大家的名字填进去，一行一个。',
+        '转盘停在谁的名字上，就轮到谁。',
+        '打开真心话大冒险、随机挑战或其他题卡，读出抽到的题目。',
+        '这一轮结束后，再转一次选下一位。'
       ]
     },
     {
-      heading: 'Quiz Mode (GameKhane Live)',
+      heading: '联机答题',
       steps: [
-        'Open GameKhane Live and choose Host or Join.',
-        'The host creates a room and shares the code.',
-        'Everyone joins from their own phone.',
-        'Answer each question before time runs out.',
-        'Scores are based on correctness and speed.'
+        '房主创建房间，把房间码分享给朋友。',
+        '每位玩家用自己的手机加入。',
+        '在倒计时结束前选答案，答得又快又准就能拿到更高分。'
       ]
     },
     {
-      heading: 'Tilt & Guess',
+      heading: '摇头猜词',
       steps: [
-        'Pick a category and rotate to landscape.',
-        'One player holds the phone to their forehead.',
-        'Everyone else gives clues without saying the exact word.',
-        'Tilt down for a correct guess and tilt up to skip a word.',
-        'Play until the 60-second timer ends, then switch players.'
+        '选一个分类，把手机横过来贴在额头。',
+        '朋友看屏幕给提示，别直接说出词语。',
+        '猜对就把手机向下倾斜，想跳过就向上倾斜。',
+        '60 秒结束后换下一位。'
       ]
     }
   ]

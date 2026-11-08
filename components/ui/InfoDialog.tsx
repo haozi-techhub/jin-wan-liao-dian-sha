@@ -29,7 +29,7 @@ export default function InfoDialog({
         <button
           type="button"
           className="info-dialog__close"
-          aria-label="Close dialog"
+          aria-label="关闭弹窗"
           onClick={onClose}
         >
           ×

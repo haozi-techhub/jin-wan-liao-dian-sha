@@ -37,5 +37,6 @@ export function getWinnerIndex(startAngle: number, arc: number): number {
 }
 
 export function truncateWheelLabel(label: string): string {
-  return label.length > 15 ? `${label.substring(0, 13)}...` : label;
+  const characters = Array.from(label);
+  return characters.length > 15 ? `${characters.slice(0, 14).join('')}…` : label;
 }

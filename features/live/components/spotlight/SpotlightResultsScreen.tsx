@@ -19,11 +19,11 @@ export default function SpotlightResultsScreen({
   if (skipReason) {
     return (
       <section className="live-shell">
-        <h1 className="live-title">Round Skipped</h1>
+        <h1 className="live-title">本轮已跳过</h1>
         <p className="live-muted">{skipReason}</p>
         {canContinue && onContinue ? (
           <button type="button" className="live-btn-main" onClick={onContinue}>
-            Next Spotlight
+            下一位主角
           </button>
         ) : null}
       </section>
@@ -33,11 +33,11 @@ export default function SpotlightResultsScreen({
   if (!results) {
     return (
       <section className="live-shell">
-        <h1 className="live-title">Round Complete</h1>
-        <p className="live-muted">Waiting for the next spotlight...</p>
+        <h1 className="live-title">本轮结束</h1>
+        <p className="live-muted">等待下一位主角上场…</p>
         {canContinue && onContinue ? (
           <button type="button" className="live-btn-main" onClick={onContinue}>
-            Next Spotlight
+            下一位主角
           </button>
         ) : null}
       </section>
@@ -46,14 +46,14 @@ export default function SpotlightResultsScreen({
 
   return (
     <section className="live-shell">
-      <h1 className="live-title">Results</h1>
+      <h1 className="live-title">结果</h1>
 
       <div className="live-panel">
-        <p className="live-muted">Who is most likely to have asked the question based on the vote?</p>
+        <p className="live-muted">大家觉得最可能是谁提问？</p>
         <p className="live-question-copy" style={{marginTop: 15, fontWeight: 900}}>{results.questionText}</p>
 
         <div className="live-guess-results">
-          <h2 className="live-section-title">Votes</h2>
+          <h2 className="live-section-title">投票结果</h2>
           <ul className="live-results-list">
             {results.guessResults.map((guess) => (
               <li key={guess.playerId} className="live-result-item">
@@ -65,13 +65,13 @@ export default function SpotlightResultsScreen({
             ))}
           </ul>
         </div>
-        <p className="live-helper-text">Who really asked stays secret.</p>
+        <p className="live-helper-text">提问者的身份会继续保密。</p>
       </div>
 
       {canContinue && onContinue ? (
         <div className="live-actions">
           <button type="button" className="live-btn-main" onClick={onContinue}>
-            Next Spotlight
+            下一位主角
           </button>
         </div>
       ) : null}

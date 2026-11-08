@@ -43,12 +43,12 @@ export default function SpotlightWritingScreen({
     onSubmit(draft);
   };
 
-  const spotlightLabel = spotlightName ? `🎤 ${spotlightName} is in the Spotlight!` : '🎤 Spotlight round';
+  const spotlightLabel = spotlightName ? `🎤 ${spotlightName} 是本轮主角！` : '🎤 匿名焦点';
 
   return (
     <section className="live-shell">
       <div className="live-header-row">
-        <h1 className="live-title">Spotlight Round {Math.max(1, roundIndex)}</h1>
+        <h1 className="live-title">匿名焦点 · 第 {Math.max(1, roundIndex)} 轮</h1>
       </div>
 
       <div className="live-spotlight-banner">{spotlightLabel}</div>
@@ -56,23 +56,23 @@ export default function SpotlightWritingScreen({
       {isSpotlight ? (
         <div className="live-panel">
           <p className="live-question-copy">
-            Everyone is writing an anonymous question for you. Get ready to answer out loud.
+            大家正在给你写匿名问题，准备大声回答吧。
           </p>
           <p className="live-progress">
-            {submittedCount}/{Math.max(0, totalWriters)} questions in
+            已收到 {submittedCount}/{Math.max(0, totalWriters)} 个问题
           </p>
         </div>
       ) : (
         <div className="live-panel">
           <label htmlFor="spotlight-question" className="live-label">
-            Write one anonymous question
+            写一个匿名问题
           </label>
           <textarea
             id="spotlight-question"
             className="live-input live-textarea"
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
-            placeholder="Type your question..."
+            placeholder="输入你想问的问题…"
             maxLength={160}
             disabled={isDisabled}
             rows={3}
@@ -85,7 +85,7 @@ export default function SpotlightWritingScreen({
               onClick={() => handleTemplate(templates.spicy)}
               disabled={isDisabled || isLoading || templates.spicy.length === 0}
             >
-              😈 Spicy
+              😈 大胆
             </button>
             <button
               type="button"
@@ -93,7 +93,7 @@ export default function SpotlightWritingScreen({
               onClick={() => handleTemplate(templates.funny)}
               disabled={isDisabled || isLoading || templates.funny.length === 0}
             >
-              😂 Funny
+              😂 搞笑
             </button>
             <button
               type="button"
@@ -101,16 +101,16 @@ export default function SpotlightWritingScreen({
               onClick={() => handleTemplate(templates.deep)}
               disabled={isDisabled || isLoading || templates.deep.length === 0}
             >
-              🤯 Deep
+              🤯 走心
             </button>
           </div>
 
           <button type="button" className="live-btn-main" onClick={handleSubmit} disabled={isDisabled || draft.trim().length < 3}>
-            {hasSubmitted ? 'Question Submitted' : 'Submit Question'}
+            {hasSubmitted ? '问题已提交' : '提交问题'}
           </button>
 
           <p className="live-helper-text">
-            {submittedCount}/{Math.max(0, totalWriters)} questions in
+            已收到 {submittedCount}/{Math.max(0, totalWriters)} 个问题
           </p>
         </div>
       )}

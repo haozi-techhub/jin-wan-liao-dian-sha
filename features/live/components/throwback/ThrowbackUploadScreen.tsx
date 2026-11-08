@@ -38,7 +38,7 @@ export default function ThrowbackUploadScreen({
     }
 
     if (!file.type.startsWith('image/')) {
-      setLocalError('Please choose an image file.');
+      setLocalError('请选择图片文件。');
       return;
     }
 
@@ -49,7 +49,7 @@ export default function ThrowbackUploadScreen({
       const optimizedImage = await fileToOptimizedDataUrl(file);
       setPreview(optimizedImage);
     } catch {
-      setLocalError('Could not prepare that image. Try a different one.');
+      setLocalError('这张照片处理失败，请换一张。');
       setSelectedFileName(null);
     } finally {
       setIsPreparing(false);
@@ -59,7 +59,7 @@ export default function ThrowbackUploadScreen({
 
   const handleSubmit = async () => {
     if (!preview) {
-      setLocalError('Choose a photo first.');
+      setLocalError('请先选择一张照片。');
       return;
     }
 
@@ -73,22 +73,22 @@ export default function ThrowbackUploadScreen({
 
   return (
     <section className="live-shell">
-      <h1 className="live-title">Upload Your Throwback</h1>
+      <h1 className="live-title">上传回忆照片</h1>
       <RoomCodeCard roomCode={roomCode} />
 
       <div className="live-panel">
-        <p className="live-question-copy">{prompt ?? 'Whose photo is this?'}</p>
+        <p className="live-question-copy">{prompt ?? '这是谁的照片？'}</p>
         <p className="live-helper-text">
-          Provide an image of/from your: <strong>{imageLabel ?? 'childhood'}</strong>
+          请按主题上传照片： <strong>{imageLabel ?? '童年照'}</strong>
         </p>
         <p className="live-progress">
-          {uploadedCount}/{totalPlayers} photos ready
+          已收到 {uploadedCount}/{totalPlayers} 张照片
         </p>
       </div>
 
       <div className="live-panel">
         <label htmlFor="throwback-upload" className="live-label">
-          Choose a photo
+          选择照片
         </label>
         <input
           id="throwback-upload"
@@ -100,14 +100,14 @@ export default function ThrowbackUploadScreen({
         />
         <div className="live-file-row">
           <label htmlFor="throwback-upload" className="live-btn-neutral live-file-trigger">
-            {isPreparing ? 'Preparing...' : 'Choose Image'}
+            {isPreparing ? '正在处理…' : '选择照片'}
           </label>
-          <p className="live-file-name">{selectedFileName ?? 'No image selected yet'}</p>
+          <p className="live-file-name">{selectedFileName ?? '尚未选择照片'}</p>
         </div>
 
         {preview ? (
           <div className="live-image-preview-card">
-            <img src={preview} alt="Throwback upload preview" className="live-image-preview" />
+            <img src={preview} alt="待上传的照片预览" className="live-image-preview" />
           </div>
         ) : null}
 
@@ -117,11 +117,11 @@ export default function ThrowbackUploadScreen({
           onClick={handleSubmit}
           disabled={!preview || isPreparing || isSubmitting}
         >
-          {isPreparing ? 'Preparing...' : hasUploadedImage ? 'Replace Photo' : 'Upload Photo'}
+          {isPreparing ? '正在处理…' : hasUploadedImage ? '更换照片' : '上传照片'}
         </button>
 
         {hasUploadedImage ? (
-          <p className="live-helper-text">Your photo is already in. You can replace it until the host starts.</p>
+          <p className="live-helper-text">照片已上传，在主持人开始游戏前可以更换。</p>
         ) : null}
       </div>
 

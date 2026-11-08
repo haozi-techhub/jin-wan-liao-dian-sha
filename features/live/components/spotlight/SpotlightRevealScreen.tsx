@@ -31,14 +31,14 @@ export default function SpotlightRevealScreen({
   return (
     <section className="live-shell">
       <div className="live-header-row">
-        <h1 className="live-title">Big Reveal</h1>
-        <span className="live-status-pill">Answer Time</span>
+        <h1 className="live-title">揭晓问题</h1>
+        <span className="live-status-pill">回答时间</span>
       </div>
 
       <div className="live-spotlight-banner">
         {spotlightName
-          ? `🎤 ${spotlightName} is on the spot`
-          : "🎤 Spotlight time"}
+          ? `🎤 轮到 ${spotlightName} 回答`
+          : "🎤 轮到主角回答"}
       </div>
 
       <div className="live-panel live-reveal-panel">
@@ -49,8 +49,8 @@ export default function SpotlightRevealScreen({
         </div>
         <p className="live-muted" style={{ marginTop: "10px" }}>
           {isSpotlight
-            ? "Answer out loud while everyone reacts."
-            : "React live while the spotlight answers."}
+            ? "大声说出你的答案，看看大家的反应。"
+            : "听主角回答，选一个表情送给对方。"}
         </p>
       </div>
 
@@ -72,7 +72,7 @@ export default function SpotlightRevealScreen({
       ) : null}
 
       <p className="live-progress">
-        {answeredCount}/{totalReactors} reacted
+        已发表反应 {answeredCount}/{totalReactors} 人
       </p>
 
       <div className="live-reaction-counts">
@@ -89,11 +89,11 @@ export default function SpotlightRevealScreen({
 
       {isSpotlight ? (
         <button type="button" className="live-btn-main" style={{ marginTop: "10px"}} onClick={onOpenVotes}>
-          Open Votes
+          开始投票
         </button>
       ) : (
         <p className="live-muted" style={{ marginTop: "10px" }}>
-          Waiting for the spotlight to open votes...
+          等待主角开启投票…
         </p>
       )}
     </section>

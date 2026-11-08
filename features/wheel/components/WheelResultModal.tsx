@@ -10,13 +10,13 @@ export default function WheelResultModal({
     <div id="resultModal" className={`result-modal ${isOpen ? 'show' : ''}`}>
       <div className="result-content">
         <div className="result-emoji">🎉</div>
-        <h3>The choice has fallen on</h3>
+        <h3>抽中了</h3>
         <div className="winner-name" id="winnerName">
           {winner}
         </div>
-        <button onClick={onClose}>Got it!</button>
+        <button onClick={onClose}>知道了</button>
         <button onClick={onSpinAgain} className="secondary-btn">
-          Spin Again
+          再转一次
         </button>
       </div>
     </div>

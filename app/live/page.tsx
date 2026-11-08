@@ -64,7 +64,7 @@ export default function LiveHomePage() {
         <div className="app">
           <div className="live-page-actions">
             <button type="button" className="back live-back-btn" onClick={handleBackToMain}>
-              ← Back to Main
+              ← 返回首页
             </button>
           </div>
           <LiveHomeScreen
@@ -77,8 +77,8 @@ export default function LiveHomePage() {
             onJoinGame={handleJoinGame}
             availableModes={['quiz', 'throwback']}
             defaultMode="quiz"
-            title="GameKhane Live"
-            subtitle="Host quiz rounds or photo-based throwback guessing rooms."
+            title="联机游戏"
+            subtitle="创建房间，邀请朋友一起答题或猜照片。"
           />
         </div>
       </main>
@@ -90,7 +90,7 @@ export default function LiveHomePage() {
       <div className="app">
         <div className="live-page-actions">
           <button type="button" className="back live-back-btn" onClick={handleBackToMain}>
-            ← Back to Main
+            ← 返回首页
           </button>
         </div>
         {mode === 'throwback' ? (

@@ -18,11 +18,13 @@ export function drawWheelOnCanvas(
   const outsideRadius = 135;
   const textRadius = 97;
   const insideRadius = 23;
+  const maxLabelWidth = Math.min(156, 2 * textRadius * Math.sin(arc / 2));
 
   ctx.clearRect(0, 0, 300, 300);
   ctx.strokeStyle = '#1a1a26';
   ctx.lineWidth = 3;
-  ctx.font = 'bold 16px Poppins, sans-serif';
+  ctx.font = 'bold 16px system-ui, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif';
+  ctx.textAlign = 'center';
 
   players.forEach((player, index) => {
     const angle = startAngle + index * arc;
@@ -49,7 +51,7 @@ export function drawWheelOnCanvas(
     ctx.rotate(angle + arc / 2 + Math.PI / 2);
 
     const text = truncateWheelLabel(player);
-    ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+    ctx.fillText(text, 0, 0, maxLabelWidth);
     ctx.restore();
   });
 

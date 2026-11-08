@@ -30,11 +30,11 @@ export default function SpotlightChoiceScreen({
   return (
     <section className="live-shell">
       <div className="live-header-row">
-        <h1 className="live-title">Pick a Question</h1>
+        <h1 className="live-title">选一张问题卡</h1>
       </div>
 
       <div className="live-spotlight-banner">
-        {spotlightName ? `🎤 ${spotlightName} chooses the card` : '🎤 Spotlight chooses the card'}
+        {spotlightName ? `🎤 轮到 ${spotlightName} 选卡` : '🎤 由本轮主角选卡'}
       </div>
 
       <div className="live-spotlight-choice-grid">
@@ -51,13 +51,13 @@ export default function SpotlightChoiceScreen({
               disabled={!isSpotlight || !!selectedId}
             >
               <span className="live-spotlight-card__mystery">{label}</span>
-              {!isSelected && isSpotlight ? <span className="live-spotlight-card__hint">Tap to reveal</span> : null}
+              {!isSelected && isSpotlight ? <span className="live-spotlight-card__hint">点击翻开</span> : null}
             </button>
           );
         })}
       </div>
 
-      {!isSpotlight ? <p className="live-muted">Waiting for the spotlight to pick a card...</p> : null}
+      {!isSpotlight ? <p className="live-muted">等待主角选卡…</p> : null}
     </section>
   );
 }

@@ -10,14 +10,22 @@ let socketInstance: LiveSocket | null = null;
 
 function getSocketUrl(): string {
   const rawUrl =
-    process.env.NEXT_PUBLIC_LIVE_SOCKET_URL ?? process.env.NEXT_PUBLIC_GAME_API_BASE_URL;
+    process.env.NEXT_PUBLIC_LIVE_SOCKET_URL?.trim() || process.env.NEXT_PUBLIC_GAME_API_BASE_URL?.trim();
 
   if (!rawUrl) {
-    throw new Error('NEXT_PUBLIC_LIVE_SOCKET_URL or NEXT_PUBLIC_GAME_API_BASE_URL must be configured.');
+    throw new Error('请在 .env.local 中配置 NEXT_PUBLIC_LIVE_SOCKET_URL，然后重启应用。');
   }
 
-  const parsed = new URL(rawUrl);
-  return `${parsed.protocol}//${parsed.host}`;
+  try {
+    const parsed = new URL(rawUrl);
+    if (/^(https?|wss?):$/.test(parsed.protocol) && parsed.host) {
+      return `${parsed.protocol}//${parsed.host}`;
+    }
+  } catch {
+    // Report malformed URLs and unsupported protocols with the same message.
+  }
+
+  throw new Error('联机服务地址格式有误，请检查 .env.local。');
 }
 
 function getSocketPath(): string {

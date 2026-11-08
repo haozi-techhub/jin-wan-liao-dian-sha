@@ -95,13 +95,13 @@ export function useWheel(): UseWheelResult {
     const trimmedInput = inputValue.trim();
 
     if (!trimmedInput) {
-      alert('Please enter at least 2 options!');
+      alert('请至少输入 2 个选项。');
       return;
     }
 
     const nextPlayers = parseWheelOptions(trimmedInput);
     if (nextPlayers.length < 2) {
-      alert('Please enter at least 2 options!');
+      alert('请至少输入 2 个选项。');
       return;
     }
 

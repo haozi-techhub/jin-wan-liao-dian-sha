@@ -85,7 +85,7 @@ export default function GameRouteScreen({ gameId }: GameRouteScreenProps) {
             return;
           }
 
-          setText('Could not load a question. Tap again.');
+          setText('题目加载失败，点下方按钮重试。');
           setAnswerText('');
           setShowAnswer(false);
           return;
@@ -96,7 +96,7 @@ export default function GameRouteScreen({ gameId }: GameRouteScreenProps) {
         return;
       }
 
-      setText('Could not load a question. Tap again.');
+      setText('题目加载失败，点下方按钮重试。');
       setAnswerText('');
       setShowAnswer(false);
     } finally {
@@ -131,19 +131,19 @@ export default function GameRouteScreen({ gameId }: GameRouteScreenProps) {
       <h1 id="gameTitle">{config.title}</h1>
       {supportsSpicyMode ? (
         <div className="game-mode-toggle">
-          <span className="game-mode-label">Spicy Mode</span>
+          <span className="game-mode-label">加料模式</span>
           <button
             type="button"
             className={`game-mode-btn ${isSpicyMode ? 'game-mode-btn--active' : ''}`}
             onClick={handleSpicyToggle}
             aria-pressed={isSpicyMode}
           >
-            {isSpicyMode ? 'ON' : 'OFF'}
+            {isSpicyMode ? '已开启' : '已关闭'}
           </button>
         </div>
       ) : null}
       <div className="card" id="gameText" aria-live="polite">
-        {text || (isLoading ? 'Loading...' : '')}
+        {text || (isLoading ? '正在抽题…' : '')}
       </div>
       {supportsAnswerReveal && answerText ? (
         <>
@@ -152,7 +152,7 @@ export default function GameRouteScreen({ gameId }: GameRouteScreenProps) {
             className="game-answer-btn"
             onClick={() => setShowAnswer((prev) => !prev)}
           >
-            {showAnswer ? 'Hide Answer' : 'Show Answer'}
+            {showAnswer ? '收起答案' : '查看答案'}
           </button>
           {showAnswer ? <div className="card game-answer-card">{answerText}</div> : null}
         </>
@@ -161,7 +161,7 @@ export default function GameRouteScreen({ gameId }: GameRouteScreenProps) {
         {config.buttonText}
       </button>
       <button className="back" onClick={handleBack} type="button">
-        ← Back
+        ← 返回首页
       </button>
     </div>
   );

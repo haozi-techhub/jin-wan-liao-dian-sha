@@ -19,7 +19,7 @@ interface UniqueRandomGameItemOptions extends RandomGameItemOptions {
 
 export class QuestionPoolExhaustedError extends Error {
   constructor() {
-    super('No unseen questions left in this pool.');
+    super('本轮题目已抽完。');
     this.name = 'QuestionPoolExhaustedError';
   }
 }
@@ -109,11 +109,11 @@ export async function getRandomGameItem(
       throw new QuestionPoolExhaustedError();
     }
 
-    throw new Error(`Failed to fetch game prompt (${response.status})`);
+    throw new Error(`题目请求失败（${response.status}）。`);
   }
 
   if (!isPromptApiResponse(payload)) {
-    throw new Error('Invalid game prompt response');
+    throw new Error('题库接口返回的数据格式有误。');
   }
 
   return payload.data;

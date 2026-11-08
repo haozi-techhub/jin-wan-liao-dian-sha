@@ -33,14 +33,14 @@ export default function QuizQuestionScreen({
     <section className="live-shell">
       <div className="live-header-row">
         <h1 className="live-title">
-          {isImageRound ? 'Photo' : 'Question'} {questionIndex + 1}/{totalQuestions}
+          {isImageRound ? '照片' : '题目'} {questionIndex + 1}/{totalQuestions}
         </h1>
-        <span className="live-timer-pill">{secondsLeft}s</span>
+        <span className="live-timer-pill">{secondsLeft} 秒</span>
       </div>
 
       {question.imageDataUrl ? (
         <div className="live-image-stage">
-          <img src={question.imageDataUrl} alt="Current round visual" className="live-round-image" />
+          <img src={question.imageDataUrl} alt="本轮竞猜照片" className="live-round-image" />
         </div>
       ) : null}
 
@@ -66,10 +66,10 @@ export default function QuizQuestionScreen({
       </div>
 
       <p className="live-progress">
-        {answeredCount}/{totalPlayers} answered
+        已作答 {answeredCount}/{totalPlayers} 人
       </p>
-      {isImageRound ? <p className="live-muted">If this is your photo, sit this round out and let everyone else guess.</p> : null}
-      {hasAnswered ? <p className="live-muted">Answer submitted. Waiting for results.</p> : null}
+      {isImageRound ? <p className="live-muted">如果这是你的照片，这轮就留给其他人猜吧。</p> : null}
+      {hasAnswered ? <p className="live-muted">答案已提交，等待公布结果。</p> : null}
     </section>
   );
 }

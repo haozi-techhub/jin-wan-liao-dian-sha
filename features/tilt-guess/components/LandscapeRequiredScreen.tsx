@@ -11,11 +11,11 @@ export default function LandscapeRequiredScreen({ isLandscape, onBack }: Landsca
           <span className="tilt-guess-rotate-icon" aria-hidden="true">
             🔄
           </span>
-          <h2>Rotate your phone to landscape to play.</h2>
-          <p>{isLandscape ? 'Landscape detected. Starting game...' : 'Waiting for landscape orientation.'}</p>
+          <h2>请把手机转成横屏</h2>
+          <p>{isLandscape ? '已横屏，正在开始游戏…' : '转成横屏后会自动开始。'}</p>
         </div>
         <button type="button" className="tilt-guess-landscape-outside-btn" onClick={onBack}>
-          Back
+          返回
         </button>
       </div>
     </section>

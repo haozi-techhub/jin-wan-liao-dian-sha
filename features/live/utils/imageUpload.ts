@@ -4,14 +4,14 @@ export async function fileToOptimizedDataUrl(file: File): Promise<string> {
   const originalDataUrl = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : '');
-    reader.onerror = () => reject(new Error('Could not read image.'));
+    reader.onerror = () => reject(new Error('无法读取照片。'));
     reader.readAsDataURL(file);
   });
 
   const image = await new Promise<HTMLImageElement>((resolve, reject) => {
     const nextImage = new Image();
     nextImage.onload = () => resolve(nextImage);
-    nextImage.onerror = () => reject(new Error('Could not load image.'));
+    nextImage.onerror = () => reject(new Error('无法加载照片。'));
     nextImage.src = originalDataUrl;
   });
 
@@ -26,7 +26,7 @@ export async function fileToOptimizedDataUrl(file: File): Promise<string> {
 
   const context = canvas.getContext('2d');
   if (!context) {
-    throw new Error('Could not process image.');
+    throw new Error('无法处理照片。');
   }
 
   context.drawImage(image, 0, 0, width, height);

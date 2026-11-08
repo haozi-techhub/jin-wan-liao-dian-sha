@@ -34,7 +34,7 @@ export function useSpotlightTemplates() {
         }
 
         setTemplates(EMPTY_TEMPLATES);
-        setError(err instanceof Error ? err.message : 'Unable to load spotlight templates.');
+        setError(err instanceof Error ? err.message : '无法加载匿名焦点题目模板。');
       } finally {
         if (isActive) {
           setIsLoading(false);

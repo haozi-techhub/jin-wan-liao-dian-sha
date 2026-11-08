@@ -6,17 +6,6 @@ function buildApiPath(category?: TiltGuessCategory): string {
   return category ? `/api/tilt-guess/${category}` : '/api/tilt-guess';
 }
 
-function buildRequestUrl(category?: TiltGuessCategory): string {
-  const baseUrl = process.env.NEXT_PUBLIC_GAME_API_BASE_URL?.trim();
-  const path = buildApiPath(category);
-
-  if (!baseUrl) {
-    return path;
-  }
-
-  return `${baseUrl.replace(/\/$/, '')}${path}`;
-}
-
 function isWordRecord(payload: unknown): payload is TiltGuessWordRecord {
   if (!payload || typeof payload !== 'object') {
     return false;
@@ -85,16 +74,15 @@ async function fetchWithTimeout(input: string, timeoutMs = REQUEST_TIMEOUT_MS): 
 }
 
 export async function getWords(category?: TiltGuessCategory): Promise<string[]> {
-  const requestUrl = buildRequestUrl(category);
-  const response = await fetchWithTimeout(requestUrl);
+  const response = await fetchWithTimeout(buildApiPath(category));
   const payload = (await response.json().catch(() => null)) as unknown;
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch tilt-guess words (${response.status})`);
+    throw new Error(`词库请求失败（${response.status}）`);
   }
 
   if (!isWordApiResponse(payload)) {
-    throw new Error('Invalid tilt-guess response payload');
+    throw new Error('词库返回了无法识别的数据。');
   }
 
   const records = Array.isArray(payload.data) ? payload.data : [payload.data];

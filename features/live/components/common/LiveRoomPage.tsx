@@ -23,6 +23,7 @@ interface LiveRoomPageProps {
 export default function LiveRoomPage({ roomCode, startOverPath = '/live', forceSpotlight = false }: LiveRoomPageProps) {
   const router = useRouter();
   const {
+    isConnected,
     status,
     role,
     mode,
@@ -103,12 +104,13 @@ export default function LiveRoomPage({ roomCode, startOverPath = '/live', forceS
         <div className="app">
           <div className="live-page-actions">
             <button type="button" className="back live-back-btn" onClick={handleBackToMain}>
-              ← Back to Main
+              ← 返回首页
             </button>
           </div>
           <PlayerJoinScreen
             roomCode={roomCode}
             errorMessage={errorMessage}
+            isConnected={isConnected}
             isJoining={isJoiningRoom}
             roomMode={inspectedRoomMode}
             throwbackImageLabel={throwbackImageLabel}
@@ -143,9 +145,9 @@ export default function LiveRoomPage({ roomCode, startOverPath = '/live', forceS
       <main>
         <div className="app">
           <section className="live-shell">
-            <h1 className="live-title">Waiting for Host</h1>
+            <h1 className="live-title">等待主持人开始</h1>
             <RoomCodeCard roomCode={roomCode} />
-            <p className="live-muted">You joined successfully. The host will start soon.</p>
+            <p className="live-muted">已加入房间，等主持人开始游戏。</p>
           </section>
           {!isSpotlightRoom ? <QuizLeaderboardScreen players={players} /> : null}
         </div>
@@ -284,14 +286,14 @@ export default function LiveRoomPage({ roomCode, startOverPath = '/live', forceS
     <main>
       <div className="app">
         <section className="live-shell">
-          <h1 className="live-title">Game Finished</h1>
-          <p className="live-muted">Thanks for playing in room {roomCode}.</p>
+          <h1 className="live-title">游戏结束</h1>
+          <p className="live-muted">感谢参与房间 {roomCode} 的游戏。</p>
           <div className="live-actions live-finish-actions">
             <button type="button" className="live-btn-main" onClick={handleStartOver}>
-              Start Over
+              返回联机大厅
             </button>
             <button type="button" className="back live-back-btn" onClick={handleBackToMain}>
-              ← Back to Main
+              ← 返回首页
             </button>
           </div>
         </section>

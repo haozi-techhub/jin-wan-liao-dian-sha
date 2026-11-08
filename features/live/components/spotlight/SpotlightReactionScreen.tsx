@@ -25,7 +25,7 @@ export default function SpotlightReactionScreen({
   return (
     <section className="live-shell">
       <div className="live-header-row">
-        <h1 className="live-title">React</h1>
+        <h1 className="live-title">发表反应</h1>
       </div>
 
       <p className="live-question-copy live-question-copy--large">{questionText ?? '...'}</p>
@@ -46,7 +46,7 @@ export default function SpotlightReactionScreen({
       </div>
 
       <p className="live-progress">
-        {answeredCount}/{totalPlayers} reacted
+        已发表反应 {answeredCount}/{totalPlayers} 人
       </p>
 
       <div className="live-reaction-counts">

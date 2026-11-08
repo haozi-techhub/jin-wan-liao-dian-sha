@@ -24,22 +24,22 @@ interface ThrowbackHostScreenProps {
 
 function statusLabel(status: ThrowbackHostScreenProps['status']): string {
   if (status === 'question') {
-    return 'Photo Live';
+    return '竞猜中';
   }
 
   if (status === 'results') {
-    return 'Photo Results';
+    return '公布结果';
   }
 
   if (status === 'finished') {
-    return 'Finished';
+    return '已结束';
   }
 
   if (status === 'lobby') {
-    return 'Collecting Photos';
+    return '收集照片中';
   }
 
-  return 'Ready';
+  return '就绪';
 }
 
 export default function ThrowbackHostScreen({
@@ -62,7 +62,7 @@ export default function ThrowbackHostScreen({
   return (
     <section className="live-shell">
       <div className="live-header-row">
-        <h1 className="live-title">Throwback Host</h1>
+        <h1 className="live-title">回忆猜猜看主持台</h1>
         <span className="live-status-pill">{statusLabel(status)}</span>
       </div>
 
@@ -70,33 +70,33 @@ export default function ThrowbackHostScreen({
       <RoomShareCard roomCode={roomCode} joinPathBase="/live" />
 
       <div className="live-panel">
-        <h2 className="live-section-title">Round Setup</h2>
-        <p className="live-question-copy">{prompt ?? 'Whose photo is this?'}</p>
+        <h2 className="live-section-title">竞猜设置</h2>
+        <p className="live-question-copy">{prompt ?? '这是谁的照片？'}</p>
         <p className="live-helper-text">
-          Players upload an image of/from their: <strong>{imageLabel ?? 'childhood'}</strong>
+          请玩家按主题上传照片： <strong>{imageLabel ?? '童年照'}</strong>
         </p>
         {status === 'lobby' ? (
           <p className="live-progress">
-            {uploadedCount}/{players.length} photos ready
+            已收到 {uploadedCount}/{players.length} 张照片
           </p>
         ) : null}
         {(status === 'question' || status === 'results') && questionText ? (
           <p className="live-progress">
-            {answeredCount}/{totalPlayers} guessed this photo
+            已有 {answeredCount}/{totalPlayers} 人参与竞猜
           </p>
         ) : null}
       </div>
 
       <div className="live-panel">
-        <h2 className="live-section-title">Players ({players.length})</h2>
+        <h2 className="live-section-title">玩家（{players.length}）</h2>
         <ul className="live-player-list">
-          {players.length === 0 ? <li className="live-muted">Waiting for players...</li> : null}
+          {players.length === 0 ? <li className="live-muted">等待玩家加入…</li> : null}
           {players.map((player) => (
             <li key={player.id}>
               <div className="live-player-stack">
                 <span>{player.nickname}</span>
                 <span className={`live-upload-pill ${player.hasUploadedImage ? 'live-upload-pill--ready' : ''}`}>
-                  {player.hasUploadedImage ? 'Photo ready' : 'Waiting'}
+                  {player.hasUploadedImage ? '已上传照片' : '等待上传'}
                 </span>
               </div>
               <strong>{player.score}</strong>
@@ -107,17 +107,17 @@ export default function ThrowbackHostScreen({
 
       {(status === 'question' || status === 'results') && voteCounts.length > 0 ? (
         <div className="live-panel">
-          <h2 className="live-section-title">Live Votes</h2>
+          <h2 className="live-section-title">实时票数</h2>
           {imageDataUrl ? (
             <div className="live-image-stage">
-              <img src={imageDataUrl} alt="Current throwback round" className="live-round-image" />
+              <img src={imageDataUrl} alt="本轮竞猜照片" className="live-round-image" />
             </div>
           ) : null}
-          <p className="live-question-copy">{questionText ?? 'Photo round is live.'}</p>
+          <p className="live-question-copy">{questionText ?? '本轮照片竞猜已开始。'}</p>
           <div className="live-vote-grid">
             {voteCounts.map((count, index) => (
               <div key={`vote-${index}`} className={`live-vote-card live-vote-card--${index % 4}`}>
-                <span>Choice {index + 1}</span>
+                <span>选项 {index + 1}</span>
                 <strong>{count}</strong>
               </div>
             ))}
@@ -133,25 +133,25 @@ export default function ThrowbackHostScreen({
             onClick={onStartGame}
             disabled={players.length < 2 || uploadedCount !== players.length}
           >
-            Start Throwback
+            开始竞猜
           </button>
         ) : null}
 
         {status === 'results' ? (
           <button type="button" className="live-btn-main" onClick={onNextQuestion}>
-            Next Photo
+            下一张照片
           </button>
         ) : null}
 
         {status !== 'finished' ? (
           <button type="button" className="live-btn-danger" onClick={onEndGame}>
-            End Game
+            结束游戏
           </button>
         ) : null}
 
         {status === 'finished' ? (
           <button type="button" className="live-btn-main" onClick={onStartOver}>
-            Start Over
+            再开一局
           </button>
         ) : null}
       </div>

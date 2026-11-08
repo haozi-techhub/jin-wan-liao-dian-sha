@@ -2,44 +2,44 @@ import type { GameDefinition, GameId } from '@/types/game';
 
 export const gameConfig: Record<GameId, GameDefinition> = {
   mostLikely: {
-    title: '😂 Most Likely To',
-    buttonText: 'Next',
+    title: '😂 谁最有可能',
+    buttonText: '下一题',
     endpoint: '/api/most-likely'
   },
   truthDare: {
-    title: '🃏 Truth or Dare',
-    buttonText: 'Another',
+    title: '🃏 真心话大冒险',
+    buttonText: '再抽一张',
     endpoint: '/api/truth-dare'
   },
   wouldRather: {
-    title: '🤔 Would You Rather',
-    buttonText: 'Next',
+    title: '🤔 二选一',
+    buttonText: '下一题',
     endpoint: '/api/would-you-rather'
   },
   challenge: {
-    title: '🎲 Challenge',
-    buttonText: 'New Challenge',
+    title: '🎲 随机挑战',
+    buttonText: '换个挑战',
     endpoint: '/api/challenge'
   },
   conversation: {
-    title: '💭 Chit-Chat',
-    buttonText: 'Next',
+    title: '💭 聊天话题',
+    buttonText: '下一题',
     endpoint: '/api/conversation'
   },
   tonight: {
-    title: '🎯 What Are We Doing Tonight?',
-    buttonText: 'Decide',
+    title: '🎯 今晚玩什么',
+    buttonText: '抽个主意',
     endpoint: '/api/tonight'
   },
   riddles: {
-    title: '🧩 Easy Riddles',
-    buttonText: 'Next',
+    title: '🧩 趣味谜语',
+    buttonText: '下一题',
     endpoint: '/api/riddles',
     supportsSpicy: false
   },
   emojiDecode: {
-    title: '🎬 Emoji Decode',
-    buttonText: 'Next',
+    title: '🎬 表情猜谜',
+    buttonText: '下一题',
     endpoint: '/api/emoji-decode',
     supportsSpicy: false
   }

@@ -9,32 +9,32 @@ export interface TiltGuessCategoryOption {
 export const TILT_GUESS_CATEGORIES: TiltGuessCategoryOption[] = [
   {
     id: 'all',
-    label: 'All Categories',
-    subtitle: 'Mixed deck'
+    label: '全部类别',
+    subtitle: '五类题目混合抽取'
   },
   {
     id: 'animals',
-    label: 'Animals',
-    subtitle: 'Wild and cute'
+    label: '动物',
+    subtitle: '从大熊猫到章鱼'
   },
   {
     id: 'movies',
-    label: 'Movies',
-    subtitle: 'Big screen picks'
+    label: '电影',
+    subtitle: '经典电影片名'
   },
   {
     id: 'food',
-    label: 'Food',
-    subtitle: 'Tasty clues'
+    label: '美食',
+    subtitle: '小吃、主食和甜点'
   },
   {
     id: 'video-games',
-    label: 'Video Games',
-    subtitle: 'Gaming legends'
+    label: '电子游戏',
+    subtitle: '熟悉的游戏名称'
   },
   {
     id: 'public-figures',
-    label: 'Public Figures',
-    subtitle: 'Famous faces'
+    label: '名人',
+    subtitle: '文体名人和历史人物'
   }
 ];

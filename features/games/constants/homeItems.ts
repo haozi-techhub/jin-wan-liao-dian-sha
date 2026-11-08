@@ -12,81 +12,81 @@ export const HOME_ITEMS: HomeItem[] = [
   {
     id: 'mostLikely',
     icon: '😂',
-    title: "Who’s Most Likely To?",
-    subtitle: 'Call out your friends.',
+    title: "谁最有可能",
+    subtitle: '数到三，一起指向你心里的人选。',
     accent: '#ff7a59'
   },
   {
     id: 'truthDare',
     icon: '🃏',
-    title: 'Truth or Dare Game!',
-    subtitle: 'Classic party chaos.',
+    title: '真心话大冒险',
+    subtitle: '说出真心话，或接下一个挑战。',
     accent: '#ff4f8b'
   },
   {
     id: 'wouldRather',
     icon: '🤔',
-    title: 'Would You Rather?',
-    subtitle: 'Impossible choices.',
+    title: '二选一',
+    subtitle: '两个选项必须挑一个，你选哪个？',
     accent: '#00b8ff'
   },
   {
     id: 'challenge',
     icon: '🎲',
-    title: 'Random Challenges!',
-    subtitle: 'Fast fun rounds.',
+    title: '随机挑战',
+    subtitle: '抽到什么，就挑战什么。',
     accent: '#06d6a0'
   },
   {
     id: 'conversation',
     icon: '🧠',
-    title: 'Chit-Chat Topics to Talk About!',
-    subtitle: 'Break the ice.',
+    title: '聊天话题',
+    subtitle: '抽个话题，大家轮流聊。',
     accent: '#a78bfa'
   },
   {
     id: 'tonight',
     icon: '🎯',
-    title: 'What Are We Doing Tonight?',
-    subtitle: 'Decide your plan.',
+    title: '今晚玩什么',
+    subtitle: '拿不定主意？随机抽个安排。',
     accent: '#f59e0b'
   },
   {
     id: 'riddles',
     icon: '🧩',
-    title: 'Quick Brain Teaser Riddles!',
-    subtitle: 'Think fast.',
+    title: '趣味谜语',
+    subtitle: '猜完再翻答案。',
     accent: '#c3d334ff'
   },
   {
     id: 'emojiDecode',
     icon: '🎬',
-    title: 'Decode the Emoji Game!',
-    subtitle: 'Guess the meaning.',
+    title: '表情猜谜',
+    subtitle: '看表情组合，猜它指什么。',
     accent: '#72b7f4ff'
   },
   {
     id: 'liveQuiz',
     icon: '🍬',
-    title: 'GameKhane Live',
-    subtitle: 'Host. Join. Compete. Test your knowledge together!',
+    title: '联机答题',
+    subtitle: '创建或加入房间，和朋友比比谁答得又快又准。',
   },
   {
     id: 'spotlight',
     icon: '🎤',
-    title: 'Hot Seat Live',
-    subtitle: 'Anonymous questions, reactions, and guess who asked.',
+    title: '匿名焦点',
+    subtitle: '轮流当主角，回答匿名问题，再猜是谁问的。',
   },
   {
     id: 'tiltGuess',
     icon: '📱',
-    title: 'Tilt & Guess',
-    subtitle: 'Hold the phone to your forehead while friends give clues.',
+    title: '摇头猜词',
+    subtitle: '把手机贴在额头，让朋友给提示。',
   },
   {
     id: 'wheel',
     icon: '☸️',
-    title: 'Spin The Wheel',
-    subtitle: 'Let luck decide what to play and who goes next.',
+    title: '幸运转盘',
+    subtitle: '随机选玩法，或抽出下一位玩家。',
   }
 ];

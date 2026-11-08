@@ -1,20 +1,14 @@
-import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
 import Footer from '@/components/layout/Footer';
 import './globals.css';
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '600', '700'],
-  display: 'swap'
-});
+export const viewport: Viewport = { themeColor: '#0f0f14' };
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://games-khane.vercel.app'),
-  title: 'Games Khane',
-  description: 'All-in-one party games: Truth or Dare, Would You Rather, Most Likely To, challenges, and more.',
+  title: '今晚聊点啥',
+  description: '朋友聚会小游戏合集。玩真心话大冒险、二选一、猜谜、幸运转盘，随时开一局。',
   manifest: '/site.webmanifest',
-  themeColor: '#0f0f14',
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -30,15 +24,16 @@ export const metadata: Metadata = {
     ]
   },
   openGraph: {
-    title: 'Games Khane',
-    description: 'Instant party fun. Pick a game and pass the phone.',
+    title: '今晚聊点啥',
+    description: '选个玩法，把手机传给下一位，朋友聚会随时开一局。',
+    locale: 'zh_CN',
     type: 'website',
     images: [{ url: '/android-icon-192x192.png' }]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Games Khane',
-    description: 'Instant party games in one app.',
+    title: '今晚聊点啥',
+    description: '随时开一局的朋友聚会小游戏合集。',
     images: ['/android-icon-192x192.png']
   }
 };
@@ -49,8 +44,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={poppins.className}>
+    <html lang="zh-CN">
+      <body>
         <div className="site-shell">
           <div className="site-content">{children}</div>
           <Footer />

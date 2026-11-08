@@ -64,8 +64,8 @@ export default function LiveHomeScreen({
   onJoinGame,
   availableModes = ["quiz", "spotlight", "throwback"],
   defaultMode,
-  title = "GameKhane Live",
-  subtitle = "Real-time rooms for quizzes or spotlight rounds.",
+  title = "联机游戏",
+  subtitle = "创建房间，邀请朋友一起玩。",
 }: LiveHomeScreenProps) {
   const [liveMode, setLiveMode] = useState<LiveMode>(() => {
     if (defaultMode && availableModes.includes(defaultMode)) {
@@ -99,12 +99,12 @@ export default function LiveHomeScreen({
       const normalizedLabel = throwbackImageLabel.trim();
 
       if (normalizedPrompt.length < 3) {
-        setLocalError("Add a prompt for players to guess from.");
+        setLocalError("请写一个至少 3 个字的竞猜问题。");
         return;
       }
 
       if (normalizedLabel.length < 2) {
-        setLocalError("Add a photo clue like childhood, beach day, or prom.");
+        setLocalError("请填写至少 2 个字的照片主题，例如童年照、海边旅行或毕业照。");
         return;
       }
 
@@ -126,7 +126,7 @@ export default function LiveHomeScreen({
     }
 
     if (validCustomQuestions.length === 0) {
-      setLocalError("Add at least one complete custom question.");
+      setLocalError("请至少填写一道完整的自定义题目。");
       return;
     }
 
@@ -149,7 +149,7 @@ export default function LiveHomeScreen({
       <p className="live-subtitle">{subtitle}</p>
 
       <div className="live-panel">
-        <h2 className="live-section-title">Host Setup</h2>
+        <h2 className="live-section-title">创建房间</h2>
 
         {availableModes.length > 1 ? (
           <div className="live-mode-toggle live-mode-toggle--wide">
@@ -159,7 +159,7 @@ export default function LiveHomeScreen({
                 className={`live-mode-btn ${liveMode === "quiz" ? "live-mode-btn--active" : ""}`}
                 onClick={() => setLiveMode("quiz")}
               >
-                Quiz Live
+                联机答题
               </button>
             ) : null}
             {availableModes.includes("spotlight") ? (
@@ -168,7 +168,7 @@ export default function LiveHomeScreen({
                 className={`live-mode-btn ${liveMode === "spotlight" ? "live-mode-btn--active" : ""}`}
                 onClick={() => setLiveMode("spotlight")}
               >
-                Spotlight
+                匿名焦点
               </button>
             ) : null}
             {availableModes.includes("throwback") ? (
@@ -177,7 +177,7 @@ export default function LiveHomeScreen({
                 className={`live-mode-btn ${liveMode === "throwback" ? "live-mode-btn--active" : ""}`}
                 onClick={() => setLiveMode("throwback")}
               >
-                Throwback
+                回忆猜猜看
               </button>
             ) : null}
           </div>
@@ -185,38 +185,37 @@ export default function LiveHomeScreen({
 
         {liveMode === "spotlight" ? (
           <p className="live-muted" style={{ marginBottom: "20px" }}>
-            Anonymous questions for one player at a time. Players react and
-            guess who asked.
+            每轮选一位主角回答匿名问题，其他人发表反应，再猜是谁提问。
           </p>
         ) : null}
 
         {liveMode === "throwback" ? (
           <div className="live-custom-builder">
             <p className="live-muted" style={{ marginBottom: 10 }}>
-              Players join, upload a photo that matches your clue, then the room guesses whose photo is on screen.
+              玩家按主题上传照片，大家一起猜每张照片是谁的。
             </p>
 
             <label htmlFor="throwback-prompt" className="live-label">
-              Guess prompt:
+              竞猜问题
             </label>
             <input
               id="throwback-prompt"
               className="live-input"
               value={throwbackPrompt}
               onChange={(event) => setThrowbackPrompt(event.target.value)}
-              placeholder="Who is the handsome baby?"
+              placeholder="照片里的小朋友是谁？"
               maxLength={120}
             />
 
             <label htmlFor="throwback-image-label" className="live-label">
-              Photo clue:
+              照片主题
             </label>
             <input
               id="throwback-image-label"
               className="live-input"
               value={throwbackImageLabel}
               onChange={(event) => setThrowbackImageLabel(event.target.value)}
-              placeholder="childhood"
+              placeholder="童年照"
               maxLength={40}
             />
           </div>
@@ -230,14 +229,14 @@ export default function LiveHomeScreen({
                 className={`live-mode-btn ${hostMode === "default" ? "live-mode-btn--active" : ""}`}
                 onClick={() => setHostMode("default")}
               >
-                Use Default Questions
+                使用默认题库
               </button>
               <button
                 type="button"
                 className={`live-mode-btn ${hostMode === "custom" ? "live-mode-btn--active" : ""}`}
                 onClick={() => setHostMode("custom")}
               >
-                Add Questions Manually
+                自定义题目
               </button>
             </div>
           </>
@@ -246,13 +245,13 @@ export default function LiveHomeScreen({
         {liveMode === "quiz" && hostMode === "custom" ? (
           <div className="live-custom-builder">
             <p className="live-muted" style={{ marginBottom: 10 }}>
-              Create your own multiple-choice questions (4 options).
+              每道题填写 4 个选项，并选出正确答案。
             </p>
 
             {customQuestions.map((question, index) => (
               <div key={question.id} className="live-question-card">
                 <div className="live-question-card__head">
-                  <strong>Question {index + 1}</strong>
+                  <strong>第 {index + 1} 题</strong>
                   {customQuestions.length > 1 ? (
                     <button
                       type="button"
@@ -263,7 +262,7 @@ export default function LiveHomeScreen({
                         )
                       }
                     >
-                      Remove
+                      删除
                     </button>
                   ) : null}
                 </div>
@@ -277,7 +276,7 @@ export default function LiveHomeScreen({
                       prompt: event.target.value,
                     }))
                   }
-                  placeholder="Question text"
+                  placeholder="输入题目"
                 />
 
                 {[0, 1, 2, 3].map((optionIndex) => (
@@ -300,7 +299,7 @@ export default function LiveHomeScreen({
                         };
                       })
                     }
-                    placeholder={`Option ${optionIndex + 1}`}
+                    placeholder={`选项 ${optionIndex + 1}`}
                   />
                 ))}
 
@@ -308,7 +307,7 @@ export default function LiveHomeScreen({
                   className="live-label"
                   htmlFor={`correct-${question.id}`}
                 >
-                  Correct option
+                  正确选项
                 </label>
                 <select
                   id={`correct-${question.id}`}
@@ -321,10 +320,10 @@ export default function LiveHomeScreen({
                     }))
                   }
                 >
-                  <option value={0}>Option 1</option>
-                  <option value={1}>Option 2</option>
-                  <option value={2}>Option 3</option>
-                  <option value={3}>Option 4</option>
+                  <option value={0}>选项 1</option>
+                  <option value={1}>选项 2</option>
+                  <option value={2}>选项 3</option>
+                  <option value={3}>选项 4</option>
                 </select>
               </div>
             ))}
@@ -339,11 +338,11 @@ export default function LiveHomeScreen({
                 ])
               }
             >
-              Add Another Question
+              添加一道题
             </button>
 
             <p className="live-helper-text">
-              Ready questions: {validCustomQuestions.length}
+              已填写 {validCustomQuestions.length} 道完整题目
             </p>
           </div>
         ) : null}
@@ -354,15 +353,15 @@ export default function LiveHomeScreen({
           onClick={handleHostGame}
           disabled={!isConnected || isCreatingRoom}
         >
-          {isCreatingRoom ? "Creating Room..." : "Host Game"}
+          {isCreatingRoom ? "正在创建房间…" : "创建房间"}
         </button>
 
         <div className="live-divider">
-          <span>OR</span>
+          <span>或</span>
         </div>
 
         <label htmlFor="liveRoomCode" className="live-label">
-          Enter room code
+          输入房间码
         </label>
         <input
           id="liveRoomCode"
@@ -381,14 +380,14 @@ export default function LiveHomeScreen({
           onClick={onJoinGame}
           disabled={roomCode.length !== 6}
         >
-          Join Game
+          加入房间
         </button>
       </div>
 
       <p
         className={`live-connection ${isConnected ? "live-connection--online" : "live-connection--offline"}`}
       >
-        {isConnected ? "Connected" : "Connecting..."}
+        {isConnected ? "已连接" : errorMessage ? "暂未连接" : "正在连接…"}
       </p>
 
       {localError ? <p className="live-error">{localError}</p> : null}

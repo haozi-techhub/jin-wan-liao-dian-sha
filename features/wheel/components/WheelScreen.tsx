@@ -34,7 +34,7 @@ export default function WheelScreen({ isActive, onBack }: WheelScreenProps) {
 
   return (
     <div className={`screen game ${isActive ? 'active' : ''}`} id="wheel">
-      <h1>☸️ Spin the wheel?</h1>
+      <h1>☸️ 幸运转盘</h1>
 
       <WheelInputSection
         inputValue={inputValue}
@@ -58,7 +58,7 @@ export default function WheelScreen({ isActive, onBack }: WheelScreenProps) {
       />
 
       <button className="back" onClick={onBack}>
-        ← Back
+        ← 返回游戏大厅
       </button>
 
       <WheelResultModal

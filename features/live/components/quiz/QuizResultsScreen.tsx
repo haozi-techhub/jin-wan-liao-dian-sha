@@ -15,19 +15,19 @@ export default function QuizResultsScreen({
 
   return (
     <section className="live-shell">
-      <h1 className="live-title">Results</h1>
+      <h1 className="live-title">结果</h1>
 
       <div className="live-panel">
         {question?.imageDataUrl ? (
           <div className="live-image-stage live-image-stage--results">
-            <img src={question.imageDataUrl} alt="Round reveal" className="live-round-image" />
+            <img src={question.imageDataUrl} alt="本轮竞猜照片" className="live-round-image" />
           </div>
         ) : null}
 
-        <p className="live-question-copy">{question?.prompt ?? 'Round complete'}</p>
+        <p className="live-question-copy">{question?.prompt ?? '本轮结束'}</p>
         {question && typeof correctOptionIndex === 'number' ? (
           <p className="live-correct-answer">
-            {question.imageDataUrl ? 'Correct match' : 'Correct answer'}: {question.options[correctOptionIndex]}
+            {question.imageDataUrl ? '照片主人' : '正确答案'}：{question.options[correctOptionIndex]}
           </p>
         ) : null}
 

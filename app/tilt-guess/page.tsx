@@ -23,6 +23,7 @@ export default function TiltGuessPage() {
     gameStatus,
     feedback,
     isStarting,
+    startError,
     motionPermission,
     canRequestMotionPermission,
     startGame,
@@ -107,7 +108,7 @@ export default function TiltGuessPage() {
           <>
             <TiltGuessGameScreen currentWord={currentWord} timeRemaining={timeRemaining} feedback={feedback} />
             <button type="button" className="tilt-guess-end-outside-btn" onClick={endGame}>
-              End Round
+              结束本轮
             </button>
           </>
         ) : null}
@@ -128,6 +129,7 @@ export default function TiltGuessPage() {
             onStartGame={handleStartRequest}
             onBack={handleBackToGames}
             isStarting={isStarting}
+            startError={startError}
             motionPermission={motionPermission}
             canRequestMotionPermission={canRequestMotionPermission}
             onEnableMotionControls={handleEnableMotionControls}
